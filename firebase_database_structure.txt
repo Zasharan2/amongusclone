@@ -1,0 +1,203 @@
+===Database Rules===
+
+{
+    "rules": {
+        "games": {
+            "$gameUid": {
+                "gameId": {
+                    // read if authenticated and a player of this game
+                    ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                    // no writing
+                    ".write": "false"
+                },
+                "gameCode": {
+                    // read if authenticated and a player of this game
+                    ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                    // no writing
+                    ".write": "false"
+                },
+                "gameState": {
+                    // read if authenticated and a player of this game
+                    ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                    // write if authenticated and a player of this game (not very safe but i'm only using this with friends)
+                    ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                },
+                "sabotage": {
+                    // read if authenticated and a player of this game
+                    ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                    // write if authenticated and a player of this game (not very safe but i'm only using this with friends)
+                    ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                },
+                "gameSettings": {
+                    // read if authenticated and a player of this game
+                    ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                    // write if authenticated and the owner of the game
+                    ".write": "auth != null && auth.uid == $gameUid"
+                },
+                "gamePlayers": {
+                    "$playerUid": {
+                        "playerId": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // no writing
+                            ".write": "false"
+                        },
+                        "playerName": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and owner of this name
+                            ".write": "auth != null && auth.uid == $playerUid"
+                        },
+                        "playerColour": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and owner of this colour
+                            ".write": "auth != null && auth.uid == $playerUid"
+                        },
+                        "playerAccessory1": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and owner of this accessory
+                            ".write": "auth != null && auth.uid == $playerUid"
+                        },
+                        "playerAccessory2": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and owner of this accessory
+                            ".write": "auth != null && auth.uid == $playerUid"
+                        },
+                        "playerSkin": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and owner of this skin
+                            ".write": "auth != null && auth.uid == $playerUid"
+                        },
+                        "playerState": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerDeadBy": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerRole": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerRoleData": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerX": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerY": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerDir": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerBodyX": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerBodyY": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerBodyDir": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+===Database Structure===
+
+{
+    "games": {
+        // uid is some user id who owns the game
+        "gameUid": {
+            "gameId": "feuiwfhfne",
+            // EHUFIR is an example of some 6 letter string
+            "gameCode": "EHUFIR",
+            "gameState": "Meeting", // possiblities: Lobby, Roles, Game, Meeting, Endscreen
+            "sabotage": "O2", // possiblities: None, O2, Reactor, Comms, etc...
+            "gameSettings": {
+                "map": "Skeld",
+                "confirmEjects": "off",
+                "emergencyMeetings": 1,
+                "anonymousVotes": "on",
+                "emergencyCooldown": 20,
+                "discussionTime": 0,
+                "votingTime": 300,
+                "playerSpeed": 1.25,
+                "taskBarUpdates": "Meetings", // possiblities: Always, Meetings, Never
+                "visualTasks": "on",
+                "commonTasks": 2,
+                "longTasks": 3,
+                "shortTasks": 5,
+            },
+            "gamePlayers": {
+                "playerUid": {
+                    "playerId": "snfrwoiheu",
+                    "playerName": "Zasharan2",
+                    "playerColour": "White",
+                    "playerAccessory1": "sword",
+                    "playerAccessory2": "killer_mask",
+                    "playerSkin": "magma",
+                    "playerState": "Alive", // possiblities: Alive, Dead
+                    // playerDeadBy only applicable if player is dying, provides information as to who should be animated killing the player
+                    "playerDeadBy": "jdewuiojd",
+                    "playerRole": "Evil Guesser",
+                    "playerRoleData": {
+                        // playerCanKill not whether or not player has ability to kill, but rather if someone is in range to be killed
+                        "playerCanKill": "false",
+                        "playerKillCooldown": 34,
+                        "playerKillDistance": "Medium",
+                        // playerKilling only applicable if player is killing, provides information as to who is dying
+                        "playerKilling": "whourfuhnu",
+                        // playerGuessingPlayer only applicable if player is guessing, provides information as to who is being guessed
+                        "playerGuessingPlayer": "hefuirwef",
+                        // playerGuessingRole only applicable if player is guessing, provides information as to the role being guessed
+                        "playerGuessingRole": "Jester",
+                    },
+                    "playerX": 168,
+                    "playerY": 523,
+                    "playerDir": "right",
+                    // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
+                    "playerBodyX": 168,
+                    "playerBodyY": 523,
+                    "playerBodyDir": "right"
+                }
+            }
+        }
+    }
+}
