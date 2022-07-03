@@ -28,7 +28,8 @@ var ctx = c.getContext("2d");
 
 var ss = document.getElementById("spritesheet");
 var ss2 = document.getElementById("spritesheet2");
-var m0 = document.getElementById("map0");
+var m0 = new Image; m0.src = "amonguslobby.png";
+var ssRed = new Image; ssRed.src = "spritesheet_red.png";
 var pSprite = document.getElementById("player");
 
 window.addEventListener("keydown", keyPressed, false);
@@ -149,7 +150,8 @@ function createGame() {
                 // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
                 playerBodyX: 0,
                 playerBodyY: 0,
-                playerBodyDir: "right"
+                playerBodyDir: "right",
+                playerRunning: "false"
             });
 
             onDisconnect(gameRef).remove();
@@ -207,7 +209,8 @@ function joinGame(code) {
                     // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
                     playerBodyX: 0,
                     playerBodyY: 0,
-                    playerBodyDir: "right"
+                    playerBodyDir: "right",
+                    playerRunning: "false"
                 }
 
                 set(playerRef, localGame["gamePlayers"][playerID]);
@@ -295,9 +298,9 @@ function main() {
                         ctx.beginPath();
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                ctx.drawImage(pSprite, 150, 0, 150, 198, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
+                                ctx.drawImage(ssRed, 2, 1, 152, 202, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
                             } else {
-                                ctx.drawImage(pSprite, 0, 0, 150, 198, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
+                                ctx.drawImage(ssRed, 2, 1, 152, 202, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
@@ -308,26 +311,31 @@ function main() {
                 }
 
                 if (localGame["gamePlayers"][playerID]["playerState"] == "Alive") {
+                    localGame["gamePlayers"][playerID]["playerRunning"] = "false";
                     if (keys[65]) {
                         localGame["gamePlayers"][playerID]["playerX"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyX"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
+                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[68]) {
                         localGame["gamePlayers"][playerID]["playerX"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyX"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
+                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[83]) {
                         localGame["gamePlayers"][playerID]["playerY"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyY"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[87]) {
                         localGame["gamePlayers"][playerID]["playerY"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyY"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                 }
@@ -335,18 +343,18 @@ function main() {
                 // draw player
                 ctx.beginPath();
                 if (localGame["gamePlayers"][playerID]["playerDir"] == "left") {
-                    ctx.drawImage(pSprite, 150, 0, 150, 198, 339, 212, 42, 56);
+                    ctx.drawImage(ssRed, 2, 1, 152, 202, 339, 212, 42, 56);
                 } else {
-                    ctx.drawImage(pSprite, 0, 0, 150, 198, 339, 212, 42, 56);
+                    ctx.drawImage(ssRed, 2, 1, 152, 202, 339, 212, 42, 56);
                 }
 
                 // draw join code
                 ctx.beginPath();
                 ctx.fillStyle = "#ffffff";
                 ctx.font = "25px Comic Sans MS";
-                ctx.fillText("Code:",330,420);
+                ctx.fillText("Code:", 330, 420);
                 ctx.font = "30px Comic Sans MS";
-                ctx.fillText(localGame["gameCode"],300,460);
+                ctx.fillText(localGame["gameCode"], 300, 460);
             }
 
             break;

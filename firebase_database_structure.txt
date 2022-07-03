@@ -131,6 +131,12 @@
                             ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
                             // write if authenticated and a player of this game
                             ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
+                        },
+                        "playerRunning": {
+                            // read if authenticated and a player of this game
+                            ".read": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null",
+                            // write if authenticated and a player of this game
+                            ".write": "auth != null && root.child('games').child($gameUid).child('gamePlayers').child(auth.uid).val() != null"
                         }
                     }
                 }
@@ -195,7 +201,8 @@
                     // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
                     "playerBodyX": 168,
                     "playerBodyY": 523,
-                    "playerBodyDir": "right"
+                    "playerBodyDir": "right",
+                    "playerRunning": "false"
                 }
             }
         }
