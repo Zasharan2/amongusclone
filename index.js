@@ -77,6 +77,7 @@ var gameID;
 var playerRef;
 var playerID;
 
+var pLocalGame;
 var localGame;
 
 var screen = 0;
@@ -241,6 +242,9 @@ function sia() {
 function initGame() {
     // callback will occur whenever player ref changes
     onValue(gameRef, (snapshot) => {
+        if (localGame) {
+            pLocalGame = localGame;
+        }
         localGame = snapshot.val();
         console.log(localGame);
     });
