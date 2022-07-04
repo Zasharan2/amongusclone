@@ -101,6 +101,65 @@ function generateCode() {
     return code;
 }
 
+function drawPlayer(x, y, file, frame, dir) {
+    // dir can be 0 (right) or 1 (left)
+    switch (frame) {
+        // idle
+        case 0: {
+            ctx.drawImage(file, 2, 1, 152, 202, x, y, 42, 56);
+            break;
+        }
+        // run
+        case 1: {
+            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
+            break;
+        }
+        case 2: {
+            ctx.drawImage(file, 390, 1718, 72, 91, x, y, 42, 56);
+            break;
+        }
+        case 3: {
+            ctx.drawImage(file, 10, 868, 80, 103, x, y, 42, 56);
+            break;
+        }
+        case 4: {
+            ctx.drawImage(file, 10, 1105, 80, 108, x, y, 42, 56);
+            break;
+        }
+        case 5: {
+            ctx.drawImage(file, 10, 1363, 80, 109, x, y, 42, 56);
+            break;
+        }
+        case 6: {
+            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+            break;
+        }
+        case 7: {
+            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
+            break;
+        }
+        case 8: {
+            ctx.drawImage(file, 300, 1610, 72, 93, x, y, 42, 56);
+            break;
+        }
+        case 9: {
+            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+            break;
+        }
+        case 10: {
+            ctx.drawImage(file, 10, 1617, 74, 114, x, y, 42, 56);
+            break;
+        }
+        case 11: {
+            ctx.drawImage(file, 10, 1748, 74, 113, x, y, 42, 56);
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
+
 function createGame() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -158,7 +217,8 @@ function createGame() {
                 playerBodyX: 0,
                 playerBodyY: 0,
                 playerBodyDir: "right",
-                playerRunning: "false"
+                playerRunning: "false",
+                playerFrame: 0
             });
 
             onDisconnect(gameRef).remove();
@@ -217,7 +277,8 @@ function joinGame(code) {
                     playerBodyX: 0,
                     playerBodyY: 0,
                     playerBodyDir: "right",
-                    playerRunning: "false"
+                    playerRunning: "false",
+                    playerFrame: 0
                 }
 
                 set(playerRef, localGame["gamePlayers"][playerID]);
@@ -310,9 +371,9 @@ function main() {
                         ctx.beginPath();
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                ctx.drawImage(ssRed, 2, 1, 152, 202, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
+                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 1);
                             } else {
-                                ctx.drawImage(ssRed, 2, 1, 152, 202, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 56);
+                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 0);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
@@ -324,30 +385,39 @@ function main() {
 
                 if (localGame["gamePlayers"][playerID]["playerState"] == "Alive") {
                     localGame["gamePlayers"][playerID]["playerRunning"] = "false";
+                    if (keys[65] || keys[68] || keys[83] || keys[87]) {
+                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
+                        if (localGame["gamePlayers"][playerID]["playerFrame"] < 11) {
+                            localGame["gamePlayers"][playerID]["playerFrame"]++;
+                        }
+                        if (localGame["gamePlayers"][playerID]["playerFrame"] == 11) {
+                            localGame["gamePlayers"][playerID]["playerFrame"] = 1;
+                        }
+                    }
+                    if (localGame["gamePlayers"][playerID]["playerRunning"] == "false") {
+                        localGame["gamePlayers"][playerID]["playerFrame"] = 0;
+                        set(playerRef, localGame["gamePlayers"][playerID]);
+                    }
                     if (keys[65]) {
                         localGame["gamePlayers"][playerID]["playerX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
-                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[68]) {
                         localGame["gamePlayers"][playerID]["playerX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
-                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[83]) {
                         localGame["gamePlayers"][playerID]["playerY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[87]) {
                         localGame["gamePlayers"][playerID]["playerY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerBodyY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                 }
@@ -355,9 +425,9 @@ function main() {
                 // draw player
                 ctx.beginPath();
                 if (localGame["gamePlayers"][playerID]["playerDir"] == "left") {
-                    ctx.drawImage(ssRed, 2, 1, 152, 202, 339, 212, 42, 56);
+                    drawPlayer(339, 212, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 1);
                 } else {
-                    ctx.drawImage(ssRed, 2, 1, 152, 202, 339, 212, 42, 56);
+                    drawPlayer(339, 212, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 0);
                 }
 
                 // draw join code
