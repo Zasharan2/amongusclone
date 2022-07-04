@@ -72,6 +72,12 @@ window.addEventListener("mouseup", function(){
     mouseDown = false;
 });
 
+var maxFPS = 60;
+var frameDelay = 1000 / maxFPS;
+
+var frameStart;
+var frameTime;
+
 var gameRef;
 var gameID;
 var playerRef;
@@ -251,6 +257,8 @@ function initGame() {
 }
 
 function main() {
+    frameStart = Date.now();
+
     switch (screen) {
         // create or join game
         case 0: {
@@ -317,28 +325,28 @@ function main() {
                 if (localGame["gamePlayers"][playerID]["playerState"] == "Alive") {
                     localGame["gamePlayers"][playerID]["playerRunning"] = "false";
                     if (keys[65]) {
-                        localGame["gamePlayers"][playerID]["playerX"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyX"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerBodyX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[68]) {
-                        localGame["gamePlayers"][playerID]["playerX"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyX"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerBodyX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[83]) {
-                        localGame["gamePlayers"][playerID]["playerY"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyY"] += (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerBodyY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[87]) {
-                        localGame["gamePlayers"][playerID]["playerY"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyY"] -= (1.5 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerBodyY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
@@ -366,6 +374,12 @@ function main() {
         default: {
             break;
         }
+    }
+
+    frameTime = Date.now() - frameStart;
+
+    while (frameDelay > frameTime) {
+        frameTime = Date.now() - frameStart;
     }
 
     window.requestAnimationFrame(main);
