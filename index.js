@@ -103,7 +103,7 @@ function generateCode() {
 
 function drawPlayer(x, y, file, frame, dir) {
     // dir can be 0 (right) or 1 (left)
-    switch (frame) {
+    switch (Math.floor(frame / 2)) {
         // idle
         case 0: {
             ctx.drawImage(file, 2, 1, 152, 202, x, y, 42, 56);
@@ -115,23 +115,27 @@ function drawPlayer(x, y, file, frame, dir) {
             break;
         }
         case 2: {
-            ctx.drawImage(file, 390, 1718, 72, 91, x, y, 42, 56);
+            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
+//            ctx.drawImage(file, 390, 1718, 72, 91, x, y, 42, 56);
             break;
         }
         case 3: {
-            ctx.drawImage(file, 10, 868, 80, 103, x, y, 42, 56);
+            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
             break;
         }
         case 4: {
-            ctx.drawImage(file, 10, 1105, 80, 108, x, y, 42, 56);
+            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+//            ctx.drawImage(file, 10, 868, 80, 103, x, y, 42, 56);
             break;
         }
         case 5: {
-            ctx.drawImage(file, 10, 1363, 80, 109, x, y, 42, 56);
+            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+//            ctx.drawImage(file, 10, 1105, 80, 108, x, y, 42, 56);
             break;
         }
         case 6: {
             ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+//            ctx.drawImage(file, 10, 1363, 80, 109, x, y, 42, 56);
             break;
         }
         case 7: {
@@ -139,7 +143,8 @@ function drawPlayer(x, y, file, frame, dir) {
             break;
         }
         case 8: {
-            ctx.drawImage(file, 300, 1610, 72, 93, x, y, 42, 56);
+            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
+//            ctx.drawImage(file, 300, 1610, 72, 93, x, y, 42, 56);
             break;
         }
         case 9: {
@@ -147,12 +152,17 @@ function drawPlayer(x, y, file, frame, dir) {
             break;
         }
         case 10: {
-            ctx.drawImage(file, 10, 1617, 74, 114, x, y, 42, 56);
+            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+//            ctx.drawImage(file, 10, 1617, 74, 114, x, y, 42, 56);
             break;
         }
         case 11: {
-            ctx.drawImage(file, 10, 1748, 74, 113, x, y, 42, 56);
+            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+//            ctx.drawImage(file, 10, 1748, 74, 113, x, y, 42, 56);
             break;
+        }
+        case 12: {
+            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
         }
         default: {
             break;
@@ -387,10 +397,10 @@ function main() {
                     localGame["gamePlayers"][playerID]["playerRunning"] = "false";
                     if (keys[65] || keys[68] || keys[83] || keys[87]) {
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
-                        if (localGame["gamePlayers"][playerID]["playerFrame"] < 11) {
-                            localGame["gamePlayers"][playerID]["playerFrame"]++;
+                        if (localGame["gamePlayers"][playerID]["playerFrame"] < 24) {
+                            localGame["gamePlayers"][playerID]["playerFrame"] += 1;
                         }
-                        if (localGame["gamePlayers"][playerID]["playerFrame"] == 11) {
+                        if (localGame["gamePlayers"][playerID]["playerFrame"] == 24) {
                             localGame["gamePlayers"][playerID]["playerFrame"] = 1;
                         }
                     }
