@@ -248,6 +248,7 @@ function drawPlayer(x, y, file, frame, dir) {
         }
     }
 
+    // flip image based on direction
     if (dir) {
         ctx.drawImage(file, (1320 - dx) - dw, dy, dw, dh, x, y, w, h);
     } else {
