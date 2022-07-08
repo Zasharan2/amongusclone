@@ -26,11 +26,9 @@ const database = getDatabase(app);
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
 
-var ss = document.getElementById("spritesheet");
-var ss2 = document.getElementById("spritesheet2");
+var ss = new Image; ssRed.src = "spritesheet.png";
 var m0 = new Image; m0.src = "amonguslobby.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
-var pSprite = document.getElementById("player");
 
 window.addEventListener("keydown", keyPressed, false);
 window.addEventListener("keyup", keyReleased, false);
@@ -387,7 +385,7 @@ function main() {
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
-                                ctx.drawImage(pSprite, 300, 0, 150, 198, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 20);
+                                //ctx.drawImage(pSprite, 300, 0, 150, 198, 339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], 42, 20);
                             }
                         }
                     }

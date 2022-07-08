@@ -27,6 +27,7 @@ Neutral aligned
     Vulture - Eat X amount of corpses
     Pursuer - Has to be alive when the game ends, can fill killer weapons with blanks
   m?Karen - Has to kill the manager to win. Dies if they try to kill anyone else.
+  m?Mapmaster - Can switch maps mid-game, switching maps causes the taskbar to reset. The Mapmaster wins if they reset a taskbar that is over halfway done, then in the new map do it again. Mapmasters have a really long cooldown on switching maps.
 Secondary
     Lovers - Two players who have to keep each other alive until the last three for a lover win
 
