@@ -26,7 +26,7 @@ const database = getDatabase(app);
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
 
-var ss = new Image; ssRed.src = "spritesheet.png";
+var ss = new Image; ss.src = "spritesheet.png";
 var m0 = new Image; m0.src = "amonguslobby.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
 
@@ -101,70 +101,157 @@ function generateCode() {
 
 function drawPlayer(x, y, file, frame, dir) {
     // dir can be 0 (right) or 1 (left)
+
+    var dx, dy, dw, dh, w, h;
+
     switch (Math.floor(frame / 2)) {
         // idle
         case 0: {
-            ctx.drawImage(file, 2, 1, 152, 202, x, y, 42, 56);
+            dx = 2;
+            dy = 1;
+            dw = 152;
+            dh = 202;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 2, 1, 152, 202, x, y, 42, 56);
             break;
         }
         // run
         case 1: {
-            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
+            dx = 408;
+            dy = 1494;
+            dw = 72;
+            dh = 91;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
             break;
         }
         case 2: {
-            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
+            dx = 408;
+            dy = 1494;
+            dw = 72;
+            dh = 91;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
 //            ctx.drawImage(file, 390, 1718, 72, 91, x, y, 42, 56);
             break;
         }
         case 3: {
-            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+            dx = 10;
+            dy = 1489;
+            dw = 80;
+            dh = 111;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
             break;
         }
         case 4: {
-            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+            dx = 10;
+            dy = 1489;
+            dw = 80;
+            dh = 111;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
 //            ctx.drawImage(file, 10, 868, 80, 103, x, y, 42, 56);
             break;
         }
         case 5: {
-            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+            dx = 10;
+            dy = 1489;
+            dw = 80;
+            dh = 111;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
 //            ctx.drawImage(file, 10, 1105, 80, 108, x, y, 42, 56);
             break;
         }
         case 6: {
-            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
+            dx = 10;
+            dy = 1489;
+            dw = 80;
+            dh = 111;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
 //            ctx.drawImage(file, 10, 1363, 80, 109, x, y, 42, 56);
             break;
         }
         case 7: {
-            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
+            dx = 306;
+            dy = 1396;
+            dw = 72;
+            dh = 94;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
             break;
         }
         case 8: {
-            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
+            dx = 306;
+            dy = 1396;
+            dw = 72;
+            dh = 94;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
 //            ctx.drawImage(file, 300, 1610, 72, 93, x, y, 42, 56);
             break;
         }
         case 9: {
-            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+            dx = 11;
+            dy = 1228;
+            dw = 74;
+            dh = 116;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
             break;
         }
         case 10: {
-            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+            dx = 11;
+            dy = 1228;
+            dw = 74;
+            dh = 116;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
 //            ctx.drawImage(file, 10, 1617, 74, 114, x, y, 42, 56);
             break;
         }
         case 11: {
-            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+            dx = 11;
+            dy = 1228;
+            dw = 74;
+            dh = 116;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
 //            ctx.drawImage(file, 10, 1748, 74, 113, x, y, 42, 56);
             break;
         }
         case 12: {
-            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
+            dx = 11;
+            dy = 1228;
+            dw = 74;
+            dh = 116;
+            w = 42;
+            h = 56;
+//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
         }
         default: {
             break;
         }
+    }
+
+    if (dir) {
+        ctx.drawImage(file, (1320 - dx) - dw, dy, dw, dh, x, y, w, h);
+    } else {
+        ctx.drawImage(file, dx, dy, dw, dh, x, y, w, h);
     }
 }
 
