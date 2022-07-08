@@ -381,9 +381,9 @@ function main() {
                         ctx.beginPath();
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 1);
+                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 1);
                             } else {
-                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 0);
+                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 0);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
