@@ -111,10 +111,15 @@ class Line {
     }
 }
 
+//                outside walls
 var lobbyLines = [new Line(340, 350, 340, 605), new Line(890, 350, 890, 605), new Line(340, 350, 510, 290), new Line(890, 350, 720, 290), new Line(510, 290, 720, 290), new Line(340, 605, 375, 650), new Line(890, 605, 855, 650), new Line(375, 650, 855, 650),
+//                lower left box
                   new Line(410, 485, 410, 550), new Line(410, 550, 450, 585), new Line(450, 585, 515, 560), new Line(515, 560, 515, 500), new Line(515, 500, 470, 460), new Line(470, 460, 410, 485),
+//                lower right box
                   new Line(735, 435, 735, 500), new Line(735, 500, 800, 525), new Line(800, 525, 840, 490), new Line(840, 490, 840, 430), new Line(840, 430, 780, 400), new Line(780, 400, 735, 435),
+//                game settings box
                   new Line(470, 350, 470, 390), new Line(470, 390, 500, 410), new Line(500, 410, 535, 395), new Line(535, 395, 535, 360), new Line(535, 360, 510, 335), new Line(510, 335, 470, 350),
+//                customisation box
                   new Line(685, 355, 685, 380), new Line(685, 380, 725, 395), new Line(725, 395, 745, 385), new Line(745, 385, 745, 360), new Line(745, 360, 705, 345), new Line(705, 345, 685, 355)];
 
 function collisionLineLine(line1, line2) {
