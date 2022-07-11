@@ -27,7 +27,9 @@ var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
 
 var ss = new Image; ss.src = "spritesheet.png";
-var m0 = new Image; m0.src = "amonguslobby.png";
+var aml = new Image; aml.src = "amonguslobby.png";
+var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
+var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
 
 window.addEventListener("keydown", keyPressed, false);
@@ -419,12 +421,41 @@ function main() {
     switch (screen) {
         // create or join game
         case 0: {
+            ctx.beginPath();
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, 720, 480);
+
+            ctx.beginPath();
+            ctx.drawImage(amm10, 0, 37.5, 720, 405);
+
+            // create game button
+            if ((mX > 295 && mY > (85 + 37.5) && mX < 426 && mY < (119 + 37.5))) {
+                ctx.beginPath();
+                ctx.drawImage(amm11, 780, 220, 360, 110, 292.5, 82.5 + 37.5, 135, 41.25);
+                if (mouseDown) {
+                    createGame();
+                    break;
+                }
+            }
             if (keys[67]) {
                 createGame();
+                break;
+            }
+
+            // join game button
+            if ((mX > 295 && mY > 360 && mX < 426 && mY < 400)) {
+                ctx.beginPath();
+                ctx.drawImage(amm11, 780, 870, 360, 110, 292.5, 326.25 + 37.5, 135, 41.25);
+                if (mouseDown) {
+                    type = [];
+                    screen = 1;
+                    break;
+                }
             }
             if (keys[74]) {
                 type = [];
                 screen = 1;
+                break;
             }
             
             break;
@@ -458,7 +489,7 @@ function main() {
             if (localGame["gameState"] == "Lobby" || localGame["gameState"] == "Game") {
                 if (localGame["gameState"] == "Lobby") {
                     ctx.beginPath();
-                    ctx.drawImage(m0, -255 - localGame["gamePlayers"][playerID]["playerBodyX"], -200 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
+                    ctx.drawImage(aml, -255 - localGame["gamePlayers"][playerID]["playerBodyX"], -200 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
                 }
                 
                 // draw other players
