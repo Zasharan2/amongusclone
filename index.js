@@ -72,11 +72,8 @@ window.addEventListener("mouseup", function(){
     mouseDown = false;
 });
 
-var maxFPS = 60;
-var frameDelay = 1000 / maxFPS;
-
-var frameStart;
-var frameTime;
+var prevTime;
+var dT; // deltaTime
 
 var gameRef;
 var gameID;
@@ -85,6 +82,8 @@ var playerID;
 
 var pLocalGame;
 var localGame;
+
+var drs = 150; // default run speed
 
 var screen = 0;
 
@@ -450,7 +449,8 @@ function initGame() {
 }
 
 function main() {
-    frameStart = Date.now();
+    dT = (Date.now() / 1000) - prevTime;
+    prevTime = (Date.now() / 1000);
 
     switch (screen) {
         // create or join game
@@ -549,10 +549,10 @@ function main() {
                     if (keys[65] || keys[68] || keys[83] || keys[87]) {
                         localGame["gamePlayers"][playerID]["playerRunning"] = "true";
                         if (localGame["gamePlayers"][playerID]["playerFrame"] < 24) {
-                            localGame["gamePlayers"][playerID]["playerFrame"] += 1;
+                            localGame["gamePlayers"][playerID]["playerFrame"] += 50 * dT;
                         }
-                        if (localGame["gamePlayers"][playerID]["playerFrame"] == 24) {
-                            localGame["gamePlayers"][playerID]["playerFrame"] = 1;
+                        if (localGame["gamePlayers"][playerID]["playerFrame"] >= 24) {
+                            localGame["gamePlayers"][playerID]["playerFrame"] = 50 * dT;
                         }
                     }
                     if (localGame["gamePlayers"][playerID]["playerRunning"] == "false") {
@@ -560,50 +560,50 @@ function main() {
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[65]) {
-                        localGame["gamePlayers"][playerID]["playerX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                        localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
                         for (var i = 0; i < mapLines.length; i++) {
                             if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
-                                localGame["gamePlayers"][playerID]["playerBodyX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                                localGame["gamePlayers"][playerID]["playerX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[68]) {
-                        localGame["gamePlayers"][playerID]["playerX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyX"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                        localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
                         for (var i = 0; i < mapLines.length; i++) {
                             if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
-                                localGame["gamePlayers"][playerID]["playerBodyX"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                                localGame["gamePlayers"][playerID]["playerX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[83]) {
-                        localGame["gamePlayers"][playerID]["playerY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                        localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
                             if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
-                                localGame["gamePlayers"][playerID]["playerBodyY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                                localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
                     }
                     if (keys[87]) {
-                        localGame["gamePlayers"][playerID]["playerY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
-                        localGame["gamePlayers"][playerID]["playerBodyY"] -= (3 * localGame["gameSettings"]["playerSpeed"]);
+                        localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                        localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
                             if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
-                                localGame["gamePlayers"][playerID]["playerBodyY"] += (3 * localGame["gameSettings"]["playerSpeed"]);
+                                localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
                             }
                         }
@@ -635,12 +635,8 @@ function main() {
         }
     }
 
-    frameTime = Date.now() - frameStart;
-
-    while (frameDelay > frameTime) {
-        frameTime = Date.now() - frameStart;
-    }
-
     window.requestAnimationFrame(main);
 }
+
+prevTime = (Date.now() / 1000);
 window.requestAnimationFrame(main);
