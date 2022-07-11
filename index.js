@@ -111,7 +111,11 @@ class Line {
     }
 }
 
-var lobbyLines = [new Line(-260, 140, -260, -130), new Line(300, 140, 300, -130), new Line(-260, -130, -100, -190), new Line(300, -130, 140, -190), new Line(-100, -190, 140, -190), new Line(-260, 140, -225, 190), new Line(300, 140, 265, 190), new Line(265, 190, -225, 190)];
+var lobbyLines = [new Line(340, 350, 340, 605), new Line(890, 350, 890, 605), new Line(340, 350, 510, 290), new Line(890, 350, 720, 290), new Line(510, 290, 720, 290), new Line(340, 605, 375, 650), new Line(890, 605, 855, 650), new Line(375, 650, 855, 650),
+                  new Line(410, 485, 410, 550), new Line(410, 550, 450, 585), new Line(450, 585, 515, 560), new Line(515, 560, 515, 500), new Line(515, 500, 470, 460), new Line(470, 460, 410, 485),
+                  new Line(735, 435, 735, 500), new Line(735, 500, 800, 525), new Line(800, 525, 840, 490), new Line(840, 490, 840, 430), new Line(840, 430, 780, 400), new Line(780, 400, 735, 435),
+                  new Line(470, 350, 470, 390), new Line(470, 390, 500, 410), new Line(500, 410, 535, 395), new Line(535, 395, 535, 360), new Line(535, 360, 510, 335), new Line(510, 335, 470, 350),
+                  new Line(685, 355, 685, 380), new Line(685, 380, 725, 395), new Line(725, 395, 745, 385), new Line(745, 385, 745, 360), new Line(745, 360, 705, 345), new Line(705, 345, 685, 355)];
 
 function collisionLineLine(line1, line2) {
     var uA = ((line2.x2-line2.x1)*(line1.y1-line2.y1) - (line2.y2-line2.y1)*(line1.x1-line2.x1)) / ((line2.y2-line2.y1)*(line1.x2-line1.x1) - (line2.x2-line2.x1)*(line1.y2-line1.y1));
@@ -125,9 +129,9 @@ function collisionLineLine(line1, line2) {
 
 function collisionBoxLine(x, y, w, h, line) {
     var l0 = new Line (x, y, x + w, y);
-    var l1 = new Line (x + w, y, x + w, y - h);
-    var l2 = new Line (x + w, y - h, x, y - h);
-    var l3 = new Line (x, y - h, x, y);
+    var l1 = new Line (x + w, y, x + w, y + h);
+    var l2 = new Line (x + w, y + h, x, y + h);
+    var l3 = new Line (x, y + h, x, y);
 
     if (collisionLineLine(l0, line) || collisionLineLine(l1, line) || collisionLineLine(l2, line) || collisionLineLine(l3, line)) {
         return true;
@@ -286,9 +290,9 @@ function drawPlayer(x, y, file, frame, dir) {
 
     // flip image based on direction
     if (dir) {
-        ctx.drawImage(file, (1320 - dx) - dw, dy, dw, dh, x, y, w, h);
+        ctx.drawImage(file, (1320 - dx) - dw, dy, dw, dh, 339 + x, 212 + y, w, h);
     } else {
-        ctx.drawImage(file, dx, dy, dw, dh, x, y, w, h);
+        ctx.drawImage(file, dx, dy, dw, dh, 339 + x, 212 + y, w, h);
     }
 }
 
@@ -342,12 +346,12 @@ function createGame() {
                 playerDeadBy: "None",
                 playerRole: "None",
                 playerRoleData: {},
-                playerX: 0,
-                playerY: 0,
+                playerX: 595,
+                playerY: 400,
                 playerDir: "right",
                 // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
-                playerBodyX: 0,
-                playerBodyY: 0,
+                playerBodyX: 595,
+                playerBodyY: 400,
                 playerBodyDir: "right",
                 playerRunning: "false",
                 playerFrame: 0
@@ -400,12 +404,12 @@ function joinGame(code) {
                     playerDeadBy: "None",
                     playerRole: "None",
                     playerRoleData: {},
-                    playerX: 0,
-                    playerY: 0,
+                    playerX: 595,
+                    playerY: 400,
                     playerDir: "right",
                     // playerBodyX, playerBodyY, & playerBodyDir will be same as playerX, playerY, & playerDir if player is still alive
-                    playerBodyX: 0,
-                    playerBodyY: 0,
+                    playerBodyX: 595,
+                    playerBodyY: 400,
                     playerBodyDir: "right",
                     playerRunning: "false",
                     playerFrame: 0
@@ -523,7 +527,7 @@ function main() {
             if (localGame["gameState"] == "Lobby" || localGame["gameState"] == "Game") {
                 if (localGame["gameState"] == "Lobby") {
                     ctx.beginPath();
-                    ctx.drawImage(aml, -255 - localGame["gamePlayers"][playerID]["playerBodyX"], -200 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
+                    ctx.drawImage(aml, 339 - localGame["gamePlayers"][playerID]["playerBodyX"], 212 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
                 }
                 
                 // draw other players
@@ -532,9 +536,9 @@ function main() {
                         ctx.beginPath();
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 1);
+                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 1);
                             } else {
-                                drawPlayer(339 + localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], 212 + localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 0);
+                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ssRed, localGame["gamePlayers"][id]["playerFrame"], 0);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
@@ -564,7 +568,7 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
+                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
                                 localGame["gamePlayers"][playerID]["playerX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
@@ -577,7 +581,7 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
+                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
                                 localGame["gamePlayers"][playerID]["playerX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
@@ -589,7 +593,7 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
+                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
                                 localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
@@ -601,7 +605,7 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"], 42, 28, mapLines[i])) {
+                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
                                 localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                                 break;
@@ -614,9 +618,9 @@ function main() {
                 // draw player
                 ctx.beginPath();
                 if (localGame["gamePlayers"][playerID]["playerDir"] == "left") {
-                    drawPlayer(339, 212, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 1);
+                    drawPlayer(0, 0, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 1);
                 } else {
-                    drawPlayer(339, 212, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 0);
+                    drawPlayer(0, 0, ssRed, localGame["gamePlayers"][playerID]["playerFrame"], 0);
                 }
 
                 // draw join code
