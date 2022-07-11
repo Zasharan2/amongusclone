@@ -113,7 +113,6 @@ class Line {
 }
 
 var lobbyLines = [new Line(-260, 140, -260, -130), new Line(300, 140, 300, -130), new Line(-260, -130, -100, -190), new Line(300, -130, 140, -190), new Line(-100, -190, 140, -190), new Line(-260, 140, -225, 190), new Line(300, 140, 265, 190), new Line(265, 190, -225, 190)];
-//var lobbyLines = [];
 
 function collisionLineLine(line1, line2) {
     var uA = ((line2.x2-line2.x1)*(line1.y1-line2.y1) - (line2.y2-line2.y1)*(line1.x1-line2.x1)) / ((line2.y2-line2.y1)*(line1.x2-line1.x1) - (line2.x2-line2.x1)*(line1.y2-line1.y1));
