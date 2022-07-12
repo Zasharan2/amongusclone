@@ -31,6 +31,7 @@ var aml = new Image; aml.src = "amonguslobby.png";
 var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
 var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
+var startButton = new Image; startButton.src = "startbutton.png";
 
 window.addEventListener("keydown", keyPressed, false);
 window.addEventListener("keyup", keyReleased, false);
@@ -461,6 +462,7 @@ function main() {
     dT = (Date.now() / 1000) - prevTime;
     prevTime = (Date.now() / 1000);
 
+    console.log(screen);
     switch (screen) {
         // create or join game
         case 0: {
@@ -529,11 +531,10 @@ function main() {
             ctx.fillStyle = "#000000";
             ctx.fillRect(0, 0, 720, 480);
 
-            if (localGame["gameState"] == "Lobby" || localGame["gameState"] == "Game") {
-                if (localGame["gameState"] == "Lobby") {
-                    ctx.beginPath();
-                    ctx.drawImage(aml, 339 - localGame["gamePlayers"][playerID]["playerBodyX"], 212 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
-                }
+            if (localGame["gameState"] == "Lobby") {
+                // draw lobby
+                ctx.beginPath();
+                ctx.drawImage(aml, 339 - localGame["gamePlayers"][playerID]["playerBodyX"], 212 - localGame["gamePlayers"][playerID]["playerBodyY"], 1231, 999);
                 
                 // draw other players
                 for (var id in localGame["gamePlayers"]){
@@ -631,14 +632,40 @@ function main() {
                 // draw join code
                 ctx.beginPath();
                 ctx.fillStyle = "#ffffff";
+                ctx.font = "20px Comic Sans MS";
+                ctx.fillText("Code:", 335, 370);
                 ctx.font = "25px Comic Sans MS";
-                ctx.fillText("Code:", 330, 420);
-                ctx.font = "30px Comic Sans MS";
-                ctx.fillText(localGame["gameCode"], 300, 460);
+                ctx.fillText(localGame["gameCode"], 305, 400);
+
+                // draw start button
+                if (localGame["gameId"] == playerID) {
+                    ctx.beginPath();
+                    ctx.drawImage(startButton, 315, 410, 84, 52);
+    
+                    if (mouseDown && mX > 315 && mX < (315 + 84) && mY > 410 && mY < (410 + 52)) {
+                        localGame["gameState"] = "Roles";
+                        set(gameRef, localGame);
+                        screen = 3
+                    }
+                }
+            } else {
+                if (localGame["gameState"] == "Roles") {
+                    screen = 3;
+                }
             }
 
             break;
         }
+
+        // roles
+        case 3: {
+            ctx.beginPath();
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, 720, 480);
+
+            break;
+        }
+
         default: {
             break;
         }
