@@ -29,7 +29,7 @@ var ctx = c.getContext("2d");
 var aml = new Image; aml.src = "amonguslobby.png";
 var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
 var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
-var ss = new Image; ss.src = "spritesheet_red.png";
+//var ss = new Image; ss.src = "spritesheet_red.png";
 var sB = new Image; sB.src = "startbutton.png";
 var uB = new Image; uB.src = "usebutton.png";
 var uB_g = new Image; uB_g.src = "usebutton_greyed.png";
@@ -38,6 +38,11 @@ var wB = new Image; wB.src = "wardrobebutton.png";
 var lrBs = new Image; lrBs.src = "leftrightbuttons.png";
 
 var colorFileList = ["spritesheet_red.png", "spritesheet_orange.png", "spritesheet_yellow.png", "spritesheet_lime.png", "spritesheet_mint.png", "spritesheet_green.png", "spritesheet_olive.png", "spritesheet_cyan.png", "spritesheet_cobalt.png", "spritesheet_blue.png", "spritesheet_purple.png", "spritesheet_faocfe.png", "spritesheet_pink.png", "spritesheet_coral.png", "spritesheet_black.png", "spritesheet_grey.png", "spritesheet_white.png", "spritesheet_brown.png"]
+
+for (var i = 0; i < colorFileList.length; i++) {
+    var ss = new Image; ss.src = colorFileList[i];
+    colorFileList[i] = ss;
+}
 
 window.addEventListener("keydown", keyPressed, false);
 window.addEventListener("keyup", keyReleased, false);
@@ -564,12 +569,11 @@ function main() {
                 for (var id in localGame["gamePlayers"]){
                     if (id != playerID) {
                         ctx.beginPath();
-                        ss.src = colorFileList[localGame["gamePlayers"][id]["playerColour"]];
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ss, localGame["gamePlayers"][id]["playerFrame"], 1);
+                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 1);
                             } else {
-                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], ss, localGame["gamePlayers"][id]["playerFrame"], 0);
+                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 0);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
@@ -646,14 +650,12 @@ function main() {
                     }
                 }
 
-                ss.src = colorFileList[localGame["gamePlayers"][playerID]["playerColour"]];
-
                 // draw player
                 ctx.beginPath();
                 if (localGame["gamePlayers"][playerID]["playerDir"] == "left") {
-                    drawPlayer(0, 0, ss, localGame["gamePlayers"][playerID]["playerFrame"], 1);
+                    drawPlayer(0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 1);
                 } else {
-                    drawPlayer(0, 0, ss, localGame["gamePlayers"][playerID]["playerFrame"], 0);
+                    drawPlayer(0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 0);
                 }
 
                 // draw join code
@@ -756,13 +758,13 @@ function main() {
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 200, 48, 55)
             if (clickingButton(80, 200, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerColour"]--;
-                set(gameRef, localGame);
+                set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 200, 48, 55)
             if (clickingButton(592, 200, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerColour"]++;
-                set(gameRef, localGame);
+                set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
 
