@@ -772,6 +772,9 @@ function main() {
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 280, 48, 55)
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 280, 48, 55)
 
+            // player
+            ctx.drawImage(colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], 2, 1, 152, 202, 256, 88, 168, 224);
+
             break;
         }
 
