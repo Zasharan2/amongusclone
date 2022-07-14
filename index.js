@@ -758,12 +758,18 @@ function main() {
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 200, 48, 55)
             if (clickingButton(80, 200, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerColour"]--;
+                if (localGame["gamePlayers"][playerID]["playerColour"] < 0) {
+                    localGame["gamePlayers"][playerID]["playerColour"] = colorFileList.length - 1;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 200, 48, 55)
             if (clickingButton(592, 200, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerColour"]++;
+                if (localGame["gamePlayers"][playerID]["playerColour"] >= colorFileList.length) {
+                    localGame["gamePlayers"][playerID]["playerColour"] = 0;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
