@@ -31,11 +31,12 @@ var aml = new Image; aml.src = "amonguslobby.png";
 var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
 var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
-var startButton = new Image; startButton.src = "startbutton.png";
-var useButton = new Image; useButton.src = "usebutton.png";
-var useButton_g = new Image; useButton_g.src = "usebutton_greyed.png";
-var customizeButton = new Image; customizeButton.src = "customizebutton.png";
-var wardrobeButton = new Image; wardrobeButton.src = "wardrobebutton.png";
+var sB = new Image; sB.src = "startbutton.png";
+var uB = new Image; uB.src = "usebutton.png";
+var uB_g = new Image; uB_g.src = "usebutton_greyed.png";
+var cB = new Image; cB.src = "customizebutton.png";
+var wB = new Image; wB.src = "wardrobebutton.png";
+var lrBs = new Image; lrBs.src = "leftrightbuttons.png";
 
 window.addEventListener("keydown", keyPressed, false);
 window.addEventListener("keyup", keyReleased, false);
@@ -98,6 +99,8 @@ var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
 
 var mapLines = [];
 
+var t22 = 0;
+
 function generateCode() {
     var code = "";
     for (var i = 0; i < 6; i++) {
@@ -147,6 +150,22 @@ function collisionBoxLine(x, y, w, h, line) {
         return true;
     }
     return false;
+}
+
+function clickingButton(bx, by, bw, bh, click) {
+    if (click) {
+        if (mouseDown && mX > bx && mX < (bx + bw) && mY > by && mY < (by + bh)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        if (mX > bx && mX < (bx + bw) && mY > by && mY < (by + bh)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 function drawPlayer(x, y, file, frame, dir) {
@@ -347,10 +366,10 @@ function createGame() {
             set(playerRef, {
                 playerId: playerID,
                 playerName: "Zasharan2",
-                playerColour: "White",
-                playerAccessory1: "sword",
-                playerAccessory2: "killer_mask",
-                playerSkin: "magma",
+                playerColour: 0,
+                playerAccessory1: 0,
+                playerAccessory2: 0,
+                playerSkin: 0,
                 playerState: "Alive", // possiblities: Alive, Dead
                 // playerDeadBy only applicable if player is dying, provides information as to who should be animated killing the player
                 playerDeadBy: "None",
@@ -405,10 +424,10 @@ function joinGame(code) {
                 localGame["gamePlayers"][playerID] = {
                     playerId: playerID,
                     playerName: "Zasharan2",
-                    playerColour: "White",
-                    playerAccessory1: "sword",
-                    playerAccessory2: "killer_mask",
-                    playerSkin: "magma",
+                    playerColour: 0,
+                    playerAccessory1: 0,
+                    playerAccessory2: 0,
+                    playerSkin: 0,
                     playerState: "Alive", // possiblities: Alive, Dead
                     // playerDeadBy only applicable if player is dying, provides information as to who should be animated killing the player
                     playerDeadBy: "None",
@@ -478,7 +497,7 @@ function main() {
             ctx.drawImage(amm10, 0, 37.5, 720, 405);
 
             // create game button
-            if ((mX > 295 && mY > (85 + 37.5) && mX < 426 && mY < (119 + 37.5))) {
+            if (clickingButton(295, (85 + 37.5), 131, 34, 0)) {
                 ctx.beginPath();
                 ctx.drawImage(amm11, 780, 220, 360, 110, 292.5, 82.5 + 37.5, 135, 41.25);
                 if (mouseDown) {
@@ -492,7 +511,7 @@ function main() {
             }
 
             // join game button
-            if ((mX > 295 && mY > 360 && mX < 426 && mY < 400)) {
+            if (clickingButton(295, 360, 131, 40, 0)) {
                 ctx.beginPath();
                 ctx.drawImage(amm11, 780, 870, 360, 110, 292.5, 326.25 + 37.5, 135, 41.25);
                 if (mouseDown) {
@@ -644,9 +663,9 @@ function main() {
                 // draw start button
                 if (localGame["gameId"] == playerID) {
                     ctx.beginPath();
-                    ctx.drawImage(startButton, 315, 410, 84, 52);
+                    ctx.drawImage(sB, 315, 410, 84, 52);
     
-                    if (mouseDown && mX > 315 && mX < (315 + 84) && mY > 410 && mY < (410 + 52)) {
+                    if (clickingButton(315, 410, 84, 52, 1)) {
                         localGame["gameState"] = "Roles";
                         set(gameRef, localGame);
                         screen = 3
@@ -654,18 +673,25 @@ function main() {
                 }
 
                 // draw use/customize/wardrobe button
-                if (localGame["gameId"] == playerID) {
-                    if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 480, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 310, 2)) < 80) {
-                        ctx.drawImage(customizeButton, 615, 375, 72, 80);
-                    } else {
-                        if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 690, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 340, 2)) < 100) {
-                            ctx.drawImage(wardrobeButton, 618, 365, 72, 80);
-                        } else {
-                            ctx.drawImage(useButton_g, 620, 380, 68, 67);
-                        }
+                if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 690, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 340, 2)) < 100) {
+                    ctx.drawImage(wB, 618, 365, 72, 80);
+                    if (clickingButton(618, 365, 72, 80, 1)) {
+                        screen = 2.2;
+                        t22 = 20;
                     }
                 } else {
-                    ctx.drawImage(useButton_g, 620, 380, 68, 67);
+                    if (localGame["gameId"] == playerID) {
+                        if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 480, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 310, 2)) < 80) {
+                            ctx.drawImage(cB, 615, 375, 72, 80);
+                            if (clickingButton(615, 375, 72, 80, 1)) {
+                                screen = 2.1;
+                            }
+                        } else {
+                            ctx.drawImage(uB_g, 620, 380, 68, 67);
+                        }
+                    } else {
+                        ctx.drawImage(uB_g, 620, 380, 68, 67);
+                    }
                 }
 
             } else {
@@ -673,6 +699,72 @@ function main() {
                     screen = 3;
                 }
             }
+
+            break;
+        }
+
+        // customize settings
+        case 2.1: {
+            ctx.beginPath();
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, 720, 480);
+
+            // back button
+            if (clickingButton(10, 420, 80, 40, 0)) {
+                ctx.drawImage(amm11, 54, 941, 180, 90, 10, 420, 80, 40);
+                if (mouseDown) {
+                    screen = 2;
+                }
+            } else {
+                ctx.drawImage(amm10, 54, 941, 180, 90, 10, 420, 80, 40);
+            }
+
+            break;
+        }
+
+        // wardrobe
+        case 2.2: {
+            t22++;
+
+            ctx.beginPath();
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, 720, 480);
+
+            // back button
+            if (clickingButton(10, 420, 80, 40, 0)) {
+                ctx.drawImage(amm11, 54, 941, 180, 90, 10, 420, 80, 40);
+                if (mouseDown) {
+                    screen = 2;
+                }
+            } else {
+                ctx.drawImage(amm10, 54, 941, 180, 90, 10, 420, 80, 40);
+            }
+
+            // accessory 1 buttons
+            ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 40, 48, 55)
+            ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 40, 48, 55)
+
+            // accessory 2 buttons
+            ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 120, 48, 55)
+            ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 120, 48, 55)
+
+            // colour buttons
+            ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 200, 48, 55)
+            if (clickingButton(80, 200, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerColour"]--;
+                set(gameRef, localGame);
+                t22 = 0;
+            }
+            ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 200, 48, 55)
+            if (clickingButton(592, 200, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerColour"]++;
+                set(gameRef, localGame);
+                t22 = 0;
+            }
+
+            // skin buttons
+            ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 280, 48, 55)
+            ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 280, 48, 55)
 
             break;
         }
