@@ -683,6 +683,8 @@ function main() {
                     ctx.drawImage(wB, 618, 365, 72, 80);
                     if (clickingButton(618, 365, 72, 80, 1)) {
                         screen = 2.2;
+                        localGame["gamePlayers"][playerID]["playerFrame"] = 0;
+                        set(playerRef, localGame["gamePlayers"][playerID]);
                         t22 = 20;
                     }
                 } else {
@@ -691,6 +693,8 @@ function main() {
                             ctx.drawImage(cB, 615, 375, 72, 80);
                             if (clickingButton(615, 375, 72, 80, 1)) {
                                 screen = 2.1;
+                                localGame["gamePlayers"][playerID]["playerFrame"] = 0;
+                                set(playerRef, localGame["gamePlayers"][playerID]);
                             }
                         } else {
                             ctx.drawImage(uB_g, 620, 380, 68, 67);
