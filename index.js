@@ -32,6 +32,10 @@ var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
 var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
 var ssRed = new Image; ssRed.src = "spritesheet_red.png";
 var startButton = new Image; startButton.src = "startbutton.png";
+var useButton = new Image; useButton.src = "usebutton.png";
+var useButton_g = new Image; useButton_g.src = "usebutton_greyed.png";
+var customizeButton = new Image; customizeButton.src = "customizebutton.png";
+var wardrobeButton = new Image; wardrobeButton.src = "wardrobebutton.png";
 
 window.addEventListener("keydown", keyPressed, false);
 window.addEventListener("keyup", keyReleased, false);
@@ -648,6 +652,22 @@ function main() {
                         screen = 3
                     }
                 }
+
+                // draw use/customize/wardrobe button
+                if (localGame["gameId"] == playerID) {
+                    if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 480, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 310, 2)) < 80) {
+                        ctx.drawImage(customizeButton, 615, 375, 72, 80);
+                    } else {
+                        if (Math.sqrt(Math.pow(localGame["gamePlayers"][playerID]["playerBodyX"] - 690, 2) + Math.pow(localGame["gamePlayers"][playerID]["playerBodyY"] - 340, 2)) < 100) {
+                            ctx.drawImage(wardrobeButton, 618, 365, 72, 80);
+                        } else {
+                            ctx.drawImage(useButton_g, 620, 380, 68, 67);
+                        }
+                    }
+                } else {
+                    ctx.drawImage(useButton_g, 620, 380, 68, 67);
+                }
+
             } else {
                 if (localGame["gameState"] == "Roles") {
                     screen = 3;
