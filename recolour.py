@@ -3,8 +3,8 @@ from PIL import Image
 img = Image.open("spritesheet.png")
 pix = img.load()
 
-mC = (249, 228, 183)
-sC = (149, 137, 110)
+mC = (204, 132, 67)
+sC = (122, 79, 66)
 
 for x in range(img.width):
     for y in range(img.height):
@@ -37,4 +37,4 @@ for x in range(img.width):
         elif (r <= 10 and g >= 50 and b <= 10):
             pix[x, y] = (73, 100, 109, 127)
 img.show()
-img.save("spritesheet_beige.png")
+img.save("spritesheet_bronze.png")

@@ -37,7 +37,7 @@ var cB = new Image; cB.src = "customizebutton.png";
 var wB = new Image; wB.src = "wardrobebutton.png";
 var lrBs = new Image; lrBs.src = "leftrightbuttons.png";
 
-var colorFileList = ["spritesheet_red.png", "spritesheet_orange.png", "spritesheet_yellow.png", "spritesheet_lime.png", "spritesheet_mint.png", "spritesheet_green.png", "spritesheet_olive.png", "spritesheet_cyan.png", "spritesheet_cobalt.png", "spritesheet_blue.png", "spritesheet_purple.png", "spritesheet_faocfe.png", "spritesheet_pink.png", "spritesheet_coral.png", "spritesheet_black.png", "spritesheet_grey.png", "spritesheet_white.png", "spritesheet_brown.png", "spritesheet_beige.png"];
+var colorFileList = ["spritesheet_red.png", "spritesheet_orange.png", "spritesheet_yellow.png", "spritesheet_lime.png", "spritesheet_mint.png", "spritesheet_green.png", "spritesheet_olive.png", "spritesheet_cyan.png", "spritesheet_cobalt.png", "spritesheet_blue.png", "spritesheet_purple.png", "spritesheet_faocfe.png", "spritesheet_pink.png", "spritesheet_coral.png", "spritesheet_black.png", "spritesheet_grey.png", "spritesheet_white.png", "spritesheet_brown.png", "spritesheet_bronze.png", "spritesheet_beige.png"];
 
 for (var i = 0; i < colorFileList.length; i++) {
     var ss = new Image; ss.src = colorFileList[i];
