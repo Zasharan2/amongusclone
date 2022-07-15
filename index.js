@@ -23,13 +23,15 @@ const auth = getAuth(app);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 
+import { drawPlayer, drawAccessory } from "./drawFuncs.js";
+
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
 
 var aml = new Image; aml.src = "amonguslobby.png";
 var amm10 = new Image; amm10.src = "amongusmenu1-0.png";
 var amm11 = new Image; amm11.src = "amongusmenu1-1.png";
-//var ss = new Image; ss.src = "spritesheet_red.png";
+var acc = new Image; acc.src = "spritesheet_accessories.png";
 var sB = new Image; sB.src = "startbutton.png";
 var uB = new Image; uB.src = "usebutton.png";
 var uB_g = new Image; uB_g.src = "usebutton_greyed.png";
@@ -171,163 +173,6 @@ function clickingButton(bx, by, bw, bh, click) {
         } else {
             return false;
         }
-    }
-}
-
-function drawPlayer(x, y, file, frame, dir) {
-    // dir can be 0 (right) or 1 (left)
-
-    var dx, dy, dw, dh, w, h;
-
-    switch (Math.floor(frame / 2)) {
-        // idle
-        case 0: {
-            dx = 2;
-            dy = 1;
-            dw = 152;
-            dh = 202;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 2, 1, 152, 202, x, y, 42, 56);
-            break;
-        }
-        // run
-        case 1: {
-            dx = 408;
-            dy = 1494;
-            dw = 72;
-            dh = 91;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
-            break;
-        }
-        case 2: {
-            dx = 408;
-            dy = 1494;
-            dw = 72;
-            dh = 91;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 408, 1494, 72, 91, x, y, 42, 56);
-//            ctx.drawImage(file, 390, 1718, 72, 91, x, y, 42, 56);
-            break;
-        }
-        case 3: {
-            dx = 10;
-            dy = 1489;
-            dw = 80;
-            dh = 111;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
-            break;
-        }
-        case 4: {
-            dx = 10;
-            dy = 1489;
-            dw = 80;
-            dh = 111;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
-//            ctx.drawImage(file, 10, 868, 80, 103, x, y, 42, 56);
-            break;
-        }
-        case 5: {
-            dx = 10;
-            dy = 1489;
-            dw = 80;
-            dh = 111;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
-//            ctx.drawImage(file, 10, 1105, 80, 108, x, y, 42, 56);
-            break;
-        }
-        case 6: {
-            dx = 10;
-            dy = 1489;
-            dw = 80;
-            dh = 111;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 10, 1489, 80, 111, x, y, 42, 56);
-//            ctx.drawImage(file, 10, 1363, 80, 109, x, y, 42, 56);
-            break;
-        }
-        case 7: {
-            dx = 306;
-            dy = 1396;
-            dw = 72;
-            dh = 94;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
-            break;
-        }
-        case 8: {
-            dx = 306;
-            dy = 1396;
-            dw = 72;
-            dh = 94;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 306, 1396, 72, 94, x, y, 42, 56);
-//            ctx.drawImage(file, 300, 1610, 72, 93, x, y, 42, 56);
-            break;
-        }
-        case 9: {
-            dx = 11;
-            dy = 1228;
-            dw = 74;
-            dh = 116;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
-            break;
-        }
-        case 10: {
-            dx = 11;
-            dy = 1228;
-            dw = 74;
-            dh = 116;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
-//            ctx.drawImage(file, 10, 1617, 74, 114, x, y, 42, 56);
-            break;
-        }
-        case 11: {
-            dx = 11;
-            dy = 1228;
-            dw = 74;
-            dh = 116;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
-//            ctx.drawImage(file, 10, 1748, 74, 113, x, y, 42, 56);
-            break;
-        }
-        case 12: {
-            dx = 11;
-            dy = 1228;
-            dw = 74;
-            dh = 116;
-            w = 42;
-            h = 56;
-//            ctx.drawImage(file, 11, 1228, 74, 116, x, y, 42, 56);
-        }
-        default: {
-            break;
-        }
-    }
-
-    // flip image based on direction
-    if (dir) {
-        ctx.drawImage(file, (1320 - dx) - dw, dy, dw, dh, 339 + x, 212 + y, w, h);
-    } else {
-        ctx.drawImage(file, dx, dy, dw, dh, 339 + x, 212 + y, w, h);
     }
 }
 
@@ -571,9 +416,13 @@ function main() {
                         ctx.beginPath();
                         if (localGame["gamePlayers"][id]["playerState"] == "Alive") {
                             if (localGame["gamePlayers"][id]["playerDir"] == "left") {
-                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 1);
+                                drawPlayer(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 1);
+                                drawAccessory(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], acc, localGame["gamePlayers"][id]["playerAccessory1"], 1, 0);
+                                drawAccessory(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], acc, localGame["gamePlayers"][id]["playerAccessory2"], 1, 0);
                             } else {
-                                drawPlayer(localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 0);
+                                drawPlayer(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], colorFileList[localGame["gamePlayers"][id]["playerColour"]], localGame["gamePlayers"][id]["playerFrame"], 0);
+                                drawAccessory(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], acc, localGame["gamePlayers"][id]["playerAccessory1"], 0, 0);
+                                drawAccessory(ctx, localGame["gamePlayers"][id]["playerBodyX"] - localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][id]["playerBodyY"] - localGame["gamePlayers"][playerID]["playerBodyY"], acc, localGame["gamePlayers"][id]["playerAccessory2"], 0, 0);
                             }
                         } else {
                             if (localGame["gamePlayers"][id]["playerState"] == "Dead") {
@@ -653,9 +502,13 @@ function main() {
                 // draw player
                 ctx.beginPath();
                 if (localGame["gamePlayers"][playerID]["playerDir"] == "left") {
-                    drawPlayer(0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 1);
+                    drawPlayer(ctx, 0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 1);
+                    drawAccessory(ctx, 0, 0, acc, localGame["gamePlayers"][playerID]["playerAccessory1"], 1, 0);
+                    drawAccessory(ctx, 0, 0, acc, localGame["gamePlayers"][playerID]["playerAccessory2"], 1, 0);
                 } else {
-                    drawPlayer(0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 0);
+                    drawPlayer(ctx, 0, 0, colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], localGame["gamePlayers"][playerID]["playerFrame"], 0);
+                    drawAccessory(ctx, 0, 0, acc, localGame["gamePlayers"][playerID]["playerAccessory1"], 0, 0);
+                    drawAccessory(ctx, 0, 0, acc, localGame["gamePlayers"][playerID]["playerAccessory2"], 0, 0);
                 }
 
                 // draw join code
@@ -752,11 +605,31 @@ function main() {
 
             // accessory 1 buttons
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 40, 48, 55)
+            if (clickingButton(80, 40, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerAccessory1"]--;
+                set(playerRef, localGame["gamePlayers"][playerID]);
+                t22 = 0;
+            }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 40, 48, 55)
+            if (clickingButton(592, 40, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerAccessory1"]++;
+                set(playerRef, localGame["gamePlayers"][playerID]);
+                t22 = 0;
+            }
 
             // accessory 2 buttons
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 120, 48, 55)
+            if (clickingButton(80, 120, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerAccessory2"]--;
+                set(playerRef, localGame["gamePlayers"][playerID]);
+                t22 = 0;
+            }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 120, 48, 55)
+            if (clickingButton(592, 120, 48, 55, 1) && t22 > 20) {
+                localGame["gamePlayers"][playerID]["playerAccessory2"]++;
+                set(playerRef, localGame["gamePlayers"][playerID]);
+                t22 = 0;
+            }
 
             // colour buttons
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 200, 48, 55)
@@ -784,6 +657,8 @@ function main() {
 
             // player
             ctx.drawImage(colorFileList[localGame["gamePlayers"][playerID]["playerColour"]], 2, 1, 152, 202, 256, 88, 168, 224);
+            drawAccessory(ctx, -73, -149, acc, localGame["gamePlayers"][playerID]["playerAccessory1"], 0, 1);
+            drawAccessory(ctx, -73, -149, acc, localGame["gamePlayers"][playerID]["playerAccessory2"], 0, 1);
 
             break;
         }
