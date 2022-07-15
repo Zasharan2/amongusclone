@@ -23,7 +23,7 @@ const auth = getAuth(app);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 
-import { drawPlayer, drawAccessory } from "./drawFuncs.js";
+import { drawPlayer, drawAccessory, accCount } from "./drawFuncs.js";
 
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
@@ -607,12 +607,18 @@ function main() {
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 40, 48, 55)
             if (clickingButton(80, 40, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerAccessory1"]--;
+                if (localGame["gamePlayers"][playerID]["playerAccessory1"] < 0) {
+                    localGame["gamePlayers"][playerID]["playerAccessory1"] = accCount - 1;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 40, 48, 55)
             if (clickingButton(592, 40, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerAccessory1"]++;
+                if (localGame["gamePlayers"][playerID]["playerAccessory1"] >= accCount) {
+                    localGame["gamePlayers"][playerID]["playerAccessory1"] = 0;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
@@ -621,12 +627,18 @@ function main() {
             ctx.drawImage(lrBs, 0, 0, 96, 110, 80, 120, 48, 55)
             if (clickingButton(80, 120, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerAccessory2"]--;
+                if (localGame["gamePlayers"][playerID]["playerAccessory2"] < 0) {
+                    localGame["gamePlayers"][playerID]["playerAccessory2"] = accCount - 1;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }
             ctx.drawImage(lrBs, 96, 0, 96, 110, 592, 120, 48, 55)
             if (clickingButton(592, 120, 48, 55, 1) && t22 > 20) {
                 localGame["gamePlayers"][playerID]["playerAccessory2"]++;
+                if (localGame["gamePlayers"][playerID]["playerAccessory2"] >= accCount) {
+                    localGame["gamePlayers"][playerID]["playerAccessory2"] = 0;
+                }
                 set(playerRef, localGame["gamePlayers"][playerID]);
                 t22 = 0;
             }

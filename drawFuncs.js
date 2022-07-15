@@ -1,3 +1,5 @@
+export var accCount = 11;
+
 export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
     // dir can be 0 (right) or 1 (left)
 
@@ -11,13 +13,12 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
 
         // khoury hat
         case 1: {
+            // src values
+            dx = 687;
+            dy = 165;
+            dw = 71;
+            dh = 43;
             if (large) {
-                // src values
-                dx = 687;
-                dy = 165;
-                dw = 71;
-                dh = 43;
-
                 // right change x
                 rcx = 6;
 
@@ -28,12 +29,6 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
                 w = 160;
                 h = dh * (w / dw);
             } else {
-                // src values
-                dx = 687;
-                dy = 165;
-                dw = 71;
-                dh = 43;
-
                 // right change x
                 rcx = 6;
                 // left change x
@@ -52,13 +47,12 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
 
         // party hat
         case 2: {
+            // src values
+            dx = 896;
+            dy = 169;
+            dw = 43;
+            dh = 64;
             if (large) {
-                // src values
-                dx = 896;
-                dy = 169;
-                dw = 43;
-                dh = 64;
-
                 // right change x
                 rcx = 40;
 
@@ -69,12 +63,6 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
                 w = 80;
                 h = dh * (w / dw);
             } else {
-                // src values
-                dx = 896;
-                dy = 169;
-                dw = 43;
-                dh = 64;
-
                 // right change x
                 rcx = 12;
                 // left change x
@@ -91,6 +79,278 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
             break;
         }
 
+        // top hat
+        case 3: {
+            // src values
+            dx = 356;
+            dy = 199;
+            dw = 71;
+            dh = 50;
+            if (large) {
+                // right change x
+                rcx = -5;
+
+                // change y
+                cy = -65;
+
+                // width & height
+                w = 160;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 0;
+                // left change x
+                lcx = 5;
+
+                // change y
+                cy = -23;
+
+                // width & height
+                w = 40;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // ski mask
+        case 4: {
+            // src values
+            dx = 530;
+            dy = 338;
+            dw = 59;
+            dh = 55;
+            if (large) {
+                // right change x
+                rcx = 15;
+
+                // change y
+                cy = 20;
+
+                // width & height
+                w = 140;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 7;
+                // left change x
+                lcx = 0;
+
+                // change y
+                cy = -3;
+
+                // width & height
+                w = 35;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // cat ears
+        case 5: {
+            // src values
+            dx = 347;
+            dy = 150;
+            dw = 67;
+            dh = 47;
+            if (large) {
+                // right change x
+                rcx = 15;
+
+                // change y
+                cy = -15;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 7;
+                // left change x
+                lcx = 5;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // crown
+        case 6: {
+            // src values
+            dx = 2;
+            dy = 180;
+            dw = 42;
+            dh = 40;
+            if (large) {
+                // right change x
+                rcx = 30;
+
+                // change y
+                cy = -25;
+
+                // width & height
+                w = 80;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 11;
+                // left change x
+                lcx = 11;
+
+                // change y
+                cy = -13;
+
+                // width & height
+                w = 20;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // andrew helmet
+        case 7: {
+            // src values
+            dx = 40;
+            dy = 90;
+            dw = 71;
+            dh = 85;
+            if (large) {
+                // right change x
+                rcx = 20;
+
+                // change y
+                cy = -40;
+
+                // width & height
+                w = 160;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 7;
+                // left change x
+                lcx = -4;
+
+                // change y
+                cy = -18;
+
+                // width & height
+                w = 40;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // gd cube
+        case 8: {
+            // src values
+            dx = 962;
+            dy = 335;
+            dw = 45;
+            dh = 46;
+            if (large) {
+                // right change x
+                rcx = 40;
+
+                // change y
+                cy = -40;
+
+                // width & height
+                w = 80;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 13;
+                // left change x
+                lcx = 9;
+
+                // change y
+                cy = -18;
+
+                // width & height
+                w = 20;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // chef hat
+        case 9: {
+            // src values
+            dx = 657;
+            dy = 528;
+            dw = 53;
+            dh = 56;
+            if (large) {
+                // right change x
+                rcx = -40;
+
+                // change y
+                cy = -80;
+
+                // width & height
+                w = 160;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -7;
+                // left change x
+                lcx = 10;
+
+                // change y
+                cy = -25;
+
+                // width & height
+                w = 40;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // dum sticker
+        case 10: {
+            // src values
+            dx = 951;
+            dy = 4;
+            dw = 44;
+            dh = 33;
+            if (large) {
+                // right change x
+                rcx = 60;
+
+                // change y
+                cy = 40;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = 15;
+                // left change x
+                lcx = -3;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+        
         default: {
             break;
         }
