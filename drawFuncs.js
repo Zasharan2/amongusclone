@@ -1,4 +1,4 @@
-export var accCount = 11;
+export var accCount = 19;
 
 export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
     // dir can be 0 (right) or 1 (left)
@@ -342,6 +342,278 @@ export function drawAccessory(ctx, x, y, file, accNum, dir, large) {
 
                 // change y
                 cy = 0;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of Bangladesh
+        case 11: {
+            // src values
+            dx = 0;
+            dy = 38;
+            dw = 47;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of USA
+        case 12: {
+            // src values
+            dx = 47;
+            dy = 38;
+            dw = 47;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of g a y
+        case 13: {
+            // src values
+            dx = 94;
+            dy = 38;
+            dw = 46;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of Germany
+        case 14: {
+            // src values
+            dx = 140;
+            dy = 38;
+            dw = 46;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of Mexico
+        case 15: {
+            // src values
+            dx = 0;
+            dy = 0;
+            dw = 47;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of Ukraine
+        case 16: {
+            // src values
+            dx = 47;
+            dy = 0;
+            dw = 47;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of France
+        case 17: {
+            // src values
+            dx = 94;
+            dy = 0;
+            dw = 46;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
+
+                // width & height
+                w = 30;
+                h = dh * (w / dw);
+            }
+            
+            break;
+        }
+
+        // flag of Japan
+        case 18: {
+            // src values
+            dx = 140;
+            dy = 0;
+            dw = 46;
+            dh = 38;
+            if (large) {
+                // right change x
+                rcx = -85;
+
+                // change y
+                cy = 0;
+
+                // width & height
+                w = 120;
+                h = dh * (w / dw);
+            } else {
+                // right change x
+                rcx = -18;
+                // left change x
+                lcx = 30;
+
+                // change y
+                cy = -8;
 
                 // width & height
                 w = 30;
