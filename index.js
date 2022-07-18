@@ -24,6 +24,7 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 import { drawPlayer, drawAccessory, accCount } from "./drawFuncs.js";
+import { Line } from "./classes.js";
 
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext("2d");
@@ -118,25 +119,18 @@ function generateCode() {
     return code;
 }
 
-class Line {
-    constructor(x1, y1, x2, y2) {
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-    }
-}
+
 
 //                outside walls
-var lobbyLines = [new Line(340, 350, 340, 605), new Line(890, 350, 890, 605), new Line(340, 350, 510, 290), new Line(890, 350, 720, 290), new Line(510, 290, 720, 290), new Line(340, 605, 375, 650), new Line(890, 605, 855, 650), new Line(375, 650, 855, 650),
+var lobbyLines = [new Object([new Line(340, 350, 340, 605), new Line(890, 350, 890, 605), new Line(340, 350, 510, 290), new Line(890, 350, 720, 290), new Line(510, 290, 720, 290), new Line(340, 605, 375, 650), new Line(890, 605, 855, 650), new Line(375, 650, 855, 650)]),
 //                lower left box
-                  new Line(410, 485, 410, 550), new Line(410, 550, 450, 585), new Line(450, 585, 515, 560), new Line(515, 560, 515, 500), new Line(515, 500, 470, 460), new Line(470, 460, 410, 485),
+                  new Object([new Line(410, 485, 410, 550), new Line(410, 550, 450, 585), new Line(450, 585, 515, 560), new Line(515, 560, 515, 500), new Line(515, 500, 470, 460), new Line(470, 460, 410, 485)]),
 //                lower right box
-                  new Line(735, 435, 735, 500), new Line(735, 500, 800, 525), new Line(800, 525, 840, 490), new Line(840, 490, 840, 430), new Line(840, 430, 780, 400), new Line(780, 400, 735, 435),
+                  new Object([new Line(735, 435, 735, 500), new Line(735, 500, 800, 525), new Line(800, 525, 840, 490), new Line(840, 490, 840, 430), new Line(840, 430, 785, 405), new Line(785, 405, 735, 435)]),
 //                game settings box
-                  new Line(470, 350, 470, 390), new Line(470, 390, 500, 410), new Line(500, 410, 535, 395), new Line(535, 395, 535, 360), new Line(535, 360, 510, 335), new Line(510, 335, 470, 350),
-//                customisation box
-                  new Line(685, 355, 685, 380), new Line(685, 380, 725, 395), new Line(725, 395, 745, 385), new Line(745, 385, 745, 360), new Line(745, 360, 705, 345), new Line(705, 345, 685, 355)];
+                  new Object([new Line(470, 350, 470, 390), new Line(470, 390, 500, 410), new Line(500, 410, 535, 395), new Line(535, 395, 535, 360), new Line(535, 360, 510, 335), new Line(510, 335, 470, 350)]),
+//                customization box
+                  new Object([new Line(685, 355, 685, 380), new Line(685, 380, 725, 395), new Line(725, 395, 745, 385), new Line(745, 385, 745, 360), new Line(745, 360, 705, 345), new Line(705, 345, 685, 355)])];
 
 function collisionLineLine(line1, line2) {
     var uA = ((line2.x2-line2.x1)*(line1.y1-line2.y1) - (line2.y2-line2.y1)*(line1.x1-line2.x1)) / ((line2.y2-line2.y1)*(line1.x2-line1.x1) - (line2.x2-line2.x1)*(line1.y2-line1.y1));
@@ -336,7 +330,6 @@ function main() {
     dT = (Date.now() / 1000) - prevTime;
     prevTime = (Date.now() / 1000);
 
-    console.log(screen);
     switch (screen) {
         // create or join game
         case 0: {
@@ -452,10 +445,12 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "left";
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                break;
+                            for (var j = 0; j < mapLines[i].length; j++) {
+                                if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i][j])) {
+                                    localGame["gamePlayers"][playerID]["playerX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    break;
+                                }
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
@@ -465,10 +460,12 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerBodyX"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerDir"] = "right";
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                break;
+                            for (var j = 0; j < mapLines[i].length; j++) {
+                                if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i][j])) {
+                                    localGame["gamePlayers"][playerID]["playerX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    localGame["gamePlayers"][playerID]["playerBodyX"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    break;
+                                }
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
@@ -477,10 +474,12 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                break;
+                            for (var j = 0; j < mapLines[i].length; j++) {
+                                if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i][j])) {
+                                    localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    break;
+                                }
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
@@ -489,10 +488,12 @@ function main() {
                         localGame["gamePlayers"][playerID]["playerY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         localGame["gamePlayers"][playerID]["playerBodyY"] -= (drs * localGame["gameSettings"]["playerSpeed"] * dT);
                         for (var i = 0; i < mapLines.length; i++) {
-                            if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i])) {
-                                localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
-                                break;
+                            for (var j = 0; j < mapLines[i].length; j++) {
+                                if (collisionBoxLine(localGame["gamePlayers"][playerID]["playerBodyX"], localGame["gamePlayers"][playerID]["playerBodyY"] + 42, 42, 14, mapLines[i][j])) {
+                                    localGame["gamePlayers"][playerID]["playerY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    localGame["gamePlayers"][playerID]["playerBodyY"] += (drs * localGame["gameSettings"]["playerSpeed"] * dT);
+                                    break;
+                                }
                             }
                         }
                         set(playerRef, localGame["gamePlayers"][playerID]);
